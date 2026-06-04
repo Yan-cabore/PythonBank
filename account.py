@@ -1,4 +1,5 @@
 from currency import Currency
+from portfolio import Investment, Portfolio
 from abc import ABC, abstractmethod
 
 class Account(ABC):
@@ -48,7 +49,8 @@ class SavingsAccount(Account):
         self.balance -= amount
         return f"You withdrew {amount}\nCurrent balance: {self.balance}"
 
-class InvestmentAccount(Account):
+class InvestmentAccount(Account, Investment, Portfolio):
     def __init__(self, account_id, holder, balance, currency):
         super().__init__(account_id, holder, balance, currency)
+    
     
