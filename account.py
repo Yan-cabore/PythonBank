@@ -1,6 +1,6 @@
 from currency import Currency
 from abc import ABC, abstractmethod
- 
+
 class Account(ABC):
     def __init__(self, account_id: int, holder: str, balance: float, currency: Currency):
         
@@ -8,27 +8,47 @@ class Account(ABC):
         self.holder = holder
         self.balance = balance
         self.currency = currency
-    
-    @abstractmethod
-    def deposit(self, amount):
-        pass
 
     @abstractmethod
     def withdraw(self, amount):
         pass
 
+    def deposit(self, amount):
+        self.balance+=amount
+        return self.balance
+    
     def check_balance(self):
-        pass #possivelmente concatenar aqui o code
+        return f"{self.balance}{self.currency.code}" 
 
 class CheckingAccount(Account):
+   
+    def __init__(self, account_id, holder, balance, currency, overdraft_limit: float = -1000):
+        super().__init__(account_id, holder, balance, currency)
+
+        self.overdraft_limit = overdraft_limit
+    
+    def withdraw(self, amount):
+        if (self.balance - amount) < self.overdraft_limit:
+            return f"Error: withdraw limit reached."
+        self.balance -= amount
+        return f"You withdrew {amount}\nCurrent balance: {self.balance}"
+
+class SavingsAccount(Account):
+    def __init__(self, account_id, holder, balance, currency, interest_rate: float):
+        super().__init__(account_id, holder, balance, currency)
+        self._interest_rate = interest_rate
+    
+    def update_balance(self):
+        self.balance *= (1 + self._interest_rate)
+        return self.balance
+
+    def withdraw(self, amount):
+        if (self.balance - amount) < 0:
+            return f"Your balance is currently zero"
+        self.balance -= amount
+        return f"You withdrew {amount}\nCurrent balance: {self.balance}"
+
+class InvestmentAccount(Account):
     def __init__(self, account_id, holder, balance, currency):
         super().__init__(account_id, holder, balance, currency)
     
-    def deposit(self, amount):
-        pass
-    
-    def withdraw(self, amount):
-        pass
-    
-    def check_balance(self):
-        pass
