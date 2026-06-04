@@ -49,8 +49,21 @@ class SavingsAccount(Account):
         self.balance -= amount
         return f"You withdrew {amount}\nCurrent balance: {self.balance}"
 
-class InvestmentAccount(Account, Investment, Portfolio):
+class InvestmentAccount(Account):
     def __init__(self, account_id, holder, balance, currency):
         super().__init__(account_id, holder, balance, currency)
+        self._portfolio = Portfolio()
+
+    def invest(self,name,amount,return_rate,date):
+        if self.balance - amount < 0:
+            return "Error: not enough balance."
+        self.balance -= amount
+        self._portfolio.add_investment(Investment(name, amount, return_rate, date))
+
+        return f"Your investment has been successfull."
     
-    
+    def withdraw(self, amount):
+        if self.balance - amount < 0:
+            return f"Error: not enough balance."
+        self.balance -= amount
+        return f"Your investment has been successfull."
