@@ -10,5 +10,13 @@ class Currency(ABC):
         self.symbol = symbol
         self.exchange_rate = exchange_rate
     
-    
+class BRL(Currency):
+    def __init__(self):
+        super().__init__("BRL", "R$", 1.0)
+class USD(Currency):
+    def __init__(self):
+        super().__init__("USD", "$", 0.20)
+class EUR(Currency):
+    def __init__(self):
+        super().__init__("EUR", "€", 0.18)
     
