@@ -1,6 +1,10 @@
 from abc import ABC, abstractmethod
 class Currency(ABC):
-    def __init__(self, code: str, symbol: str, exchange_rate: float):
+    def __init__(
+            self,
+            code: str,
+            symbol: str,
+            exchange_rate: float):
         
         self.code = code
         self.symbol = symbol
