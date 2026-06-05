@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from PythonBank.account import Account
+from account import Account
 from currency import Currency
 
 class Transaction(ABC):

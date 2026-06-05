@@ -1,2 +1,0 @@
-# LOCAL PARA TESTES
-
