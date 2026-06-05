@@ -19,6 +19,10 @@ class Account(ABC):
     @abstractmethod
     def withdraw(self, amount):
         pass
+    
+    @abstractmethod
+    def transfer(self, amount):
+        pass
 
     def deposit(self, amount):
         self.balance += amount
